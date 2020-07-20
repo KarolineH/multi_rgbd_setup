@@ -1,0 +1,62 @@
+<launch>
+  <arg name="camera1_active"    			  default="true"/>
+  <arg name="serial_no_camera1"    			default=""/> 			<!-- Note: Replace with actual serial number -->
+  <arg name="camera1"              			default="camera1"/>		<!-- Note: Replace with camera name -->
+  <arg name="tf_prefix_camera1"         default="$(arg camera1)"/>
+
+  <arg name="camera2_active"    			  default="false"/> <!-- Is there a second camera? -->
+  <arg name="serial_no_camera2"    			default=""/> 			<!-- Note: Replace with actual serial number -->
+  <arg name="camera2"              			default="camera2"/>		<!-- Note: Replace with camera name -->
+  <arg name="tf_prefix_camera2"         default="$(arg camera2)"/>
+
+  <arg name="initial_reset"             default="false"/>
+
+  <group if="$(arg camera1_active)" ns="$(arg camera1)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg serial_no_camera1)"/>
+      <arg name="tf_prefix"         		value="$(arg tf_prefix_camera1)"/>
+      <arg name="initial_reset"         value="$(arg initial_reset)"/>
+      <arg name="enable_depth"      value="true"/>
+      <arg name="enable_color"      value="true"/>
+      <arg name="enable_infra1"     value="true"/>
+      <arg name="enable_infra2"     value="true"/>
+      <arg name="enable_fisheye"    value="true"/>
+      <arg name="enable_gyro"       value="true"/>
+      <arg name="enable_accel"      value="true"/>
+      <arg name="enable_pointcloud" value="true"/>
+      <arg name="enable_sync"       value="true"/>
+      <!--arg name="depth_width"       value="640"/-->
+      <!--arg name="depth_height"      value="480"/-->
+      <!--arg name="depth_fps"         value="30"/-->
+      <!--arg name="color_width"       value="640"/-->
+      <!--arg name="color_height"      value="480"/-->
+      <!--arg name="color_fps"         value="30"/-->
+    </include>
+  </group>
+
+  <group if="$(arg camera2_active)" ns="$(arg camera2)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg serial_no_camera2)"/>
+      <arg name="tf_prefix"         		value="$(arg tf_prefix_camera2)"/>
+      <arg name="initial_reset"         value="$(arg initial_reset)"/>
+      <arg name="enable_depth"      value="true"/>
+      <arg name="enable_color"      value="true"/>
+      <arg name="enable_infra1"     value="true"/>
+      <arg name="enable_infra2"     value="true"/>
+      <arg name="enable_fisheye"    value="true"/>
+      <arg name="enable_gyro"       value="true"/>
+      <arg name="enable_accel"      value="true"/>
+      <arg name="enable_pointcloud" value="true"/>
+      <arg name="enable_sync"       value="true"/>
+      <!--arg name="depth_width"       value="640"/-->
+      <!--arg name="depth_height"      value="480"/-->
+      <!--arg name="depth_fps"         value="30"/-->
+      <!--arg name="color_width"       value="640"/-->
+      <!--arg name="color_height"      value="480"/-->
+      <!--arg name="color_fps"         value="30"/-->
+    </include>
+  </group>
+
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multi_rgbd_setup)/rviz/multiple_rgb_cameras.rviz" required="true" />
+</launch>
