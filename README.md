@@ -1,3 +1,5 @@
+*very simple ROS package to test a multi-camera setup with 2 (or more) realsense RGBD cameras*
+
 Tested using ROS kinetic on Ubuntu 16.04, and a USB 3.0 port (I experienced some bandwidth errors with USB 2.0)
 Dependencies: realsense ROS wrapper ([https://github.com/IntelRealSense/realsense-ros](https://github.com/IntelRealSense/realsense-ros))
 
